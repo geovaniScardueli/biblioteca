@@ -5,6 +5,9 @@
  */
 package bibliomateca;
 
+import bibliomateca.exemplar.Exemplar;
+import bibliomateca.livro.Livro;
+
 /**
  *
  * @author informatica
@@ -16,33 +19,34 @@ public class Principal extends javax.swing.JFrame {
      */
     public Principal() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
 
+    public void ativar() {
+        Livro livro = new Livro();
+        Exemplar exemplar = new Exemplar();
+        
+        container.add("Exemplar", exemplar);
+        container.add("Livro", livro);
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        container = new javax.swing.JTabbedPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().add(jTabbedPane1, java.awt.BorderLayout.CENTER);
+
+        container.setPreferredSize(new java.awt.Dimension(750, 560));
+        getContentPane().add(container, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Principal().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTabbedPane container;
     // End of variables declaration//GEN-END:variables
 }
