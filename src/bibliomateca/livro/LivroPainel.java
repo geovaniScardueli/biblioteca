@@ -19,12 +19,12 @@ public class LivroPainel extends javax.swing.JPanel {
 
     public LivroPainel() {
         initComponents();
+        livroDAO = new LivroDAO();
         modeloTabela = new ModeloTabela();
         tabela.setModel(modeloTabela);
     }
 
     public void ativar() {
-        livroDAO = new LivroDAO();
         modeloTabela.adicionarSelect(livroDAO.select());
     }
 
@@ -189,7 +189,13 @@ public class LivroPainel extends javax.swing.JPanel {
         livro.setTitulo(DS_TITULO.getText());
         livro.setISBN(NR_ISBN.getText());
         livro.setPaginas(Integer.parseInt(NR_PAGINAS.getText()));
-        
+        livroDAO.inserirLivro(livro);
+        ativar();
+        NR_ANO.setText("");
+        DS_CLASSIFICACAO.setText("");
+        DS_EDITORA.setText("");
+        DS_TITULO.setText("");
+        NR_ISBN.setText("");
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

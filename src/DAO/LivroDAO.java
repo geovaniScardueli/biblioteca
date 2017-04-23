@@ -6,7 +6,6 @@
 package DAO;
 
 import DTO.Livro;
-import DTO.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -47,11 +46,12 @@ public class LivroDAO extends ConexaoDAO {
     }
 
     public void inserirLivro(Livro livro) {
-        ArrayList<Livro> dados = new ArrayList();
         Connection conn = novaConexao();
         String sql = "insert into informacoes (CLASSIFICACAO, AUTOR, TITULO, EDITORA, ANO) values("
                 + "?, ?, ?, ?, ?);";
+        String sql2 = "insert into livro(PAGINAS, ISBN, NR_INFORMACOES) values(?, ?, LAST_INSERT_ID());";
         PreparedStatement pstmt = null;
+        PreparedStatement pstmt2 = null;
         try {
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, livro.getClassificacao());
@@ -62,7 +62,14 @@ public class LivroDAO extends ConexaoDAO {
             pstmt.executeUpdate();
 
             pstmt.close();
+            
+            pstmt2 = conn.prepareStatement(sql2);
+            pstmt2.setInt(1, livro.getPaginas());
+            pstmt2.setString(2, livro.getISBN());
+            pstmt2.executeUpdate();
+            pstmt2.close();
             conn.close();
+            
         } catch (Exception ex) {
             System.out.println("Erroooow: " + ex);
         }

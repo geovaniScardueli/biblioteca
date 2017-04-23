@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package bibliomateca.livro;
+package bibliomateca.usuario;
 
 import DTO.Livro;
+import DTO.Usuario;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 
@@ -13,15 +14,14 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author isold
  */
-public class ModeloTabela extends AbstractTableModel {
+public class ModeloUsuario extends AbstractTableModel {
 
-    private ArrayList<Livro> livros = new ArrayList();
-    private String[] columns = {"Sequencia", "Titulo",
-        "classificacao", "Editora", "Ano"};
-
+    private ArrayList<Usuario> usuario = new ArrayList();
+    private String[] columns = {"Sequencia", "Nome", "Multa", "Servidor"};
+    
     @Override
     public int getRowCount() {
-        return livros.size();
+        return usuario.size();
     }
 
     @Override
@@ -31,34 +31,26 @@ public class ModeloTabela extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        
         switch(columnIndex) {
             case 0:
-                return livros.get(rowIndex).getNrSequencia();
+                return usuario.get(rowIndex).getSequencia();
                 
             case 1:
-                return livros.get(rowIndex).getTitulo();
+                return usuario.get(rowIndex).getNome();
                 
             case 2:
-                return livros.get(rowIndex).getClassificacao();
+                return usuario.get(rowIndex).getValor_multa();
+            
             case 3:
-                return livros.get(rowIndex).getEditora();
-                
-            case 4:
-                return livros.get(rowIndex).getAno();
+                return usuario.get(rowIndex).getTipo();
                 
             default:
                 return null;
         }
     }
     
-    public void addLivro(Livro livro) {
-        livros.add(livro);
-        fireTableDataChanged();
-    }
-    
-    public void adicionarSelect(ArrayList<Livro> lista) {
-        livros = lista;
+    public void adicionarSelect(ArrayList<Usuario> usuario) {
+        this.usuario = usuario;
         fireTableDataChanged();
     }
     
@@ -66,5 +58,4 @@ public class ModeloTabela extends AbstractTableModel {
     public String getColumnName(int columnIndex) {
         return columns[columnIndex];
     }
-
 }

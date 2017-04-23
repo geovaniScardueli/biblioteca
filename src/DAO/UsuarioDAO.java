@@ -27,11 +27,11 @@ public class UsuarioDAO extends ConexaoDAO {
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 Usuario usuario = new Usuario();
-                usuario.setEmprestimo(rs.getDate("emprestimo"));
-                usuario.setNome(rs.getString("nome"));
-                usuario.setValor_multa(rs.getInt("valor_multa"));
-                usuario.setTipo(rs.getString("tipo"));
-                usuario.setSequencia(rs.getInt("sequencia"));
+                usuario.setEmprestimo(rs.getDate("EMPRESTIMO"));
+                usuario.setNome(rs.getString("NOME"));
+                usuario.setValor_multa(rs.getInt("MULTA"));
+                usuario.setTipo(rs.getString("TIPO"));
+                usuario.setSequencia(rs.getInt("NR_SEQUENCIA"));
                 dados.add(usuario);
             }
             pstmt.close();
@@ -42,4 +42,21 @@ public class UsuarioDAO extends ConexaoDAO {
         return dados;
     }
 
+    public void adicionar(Usuario usuario) {
+        Connection conn = novaConexao();
+        String sql = "insert into usuario(NOME, TIPO) values(?, ?);";
+        PreparedStatement pstmt = null;
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, usuario.getNome());
+            pstmt.setString(2, usuario.getTipo());
+            
+            pstmt.executeUpdate();
+            
+            pstmt.close();
+            conn.close();
+        } catch (Exception ex) {
+            System.out.println("Erroooow: " + ex);
+        }
+    }
 }

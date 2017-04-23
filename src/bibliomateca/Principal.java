@@ -5,10 +5,11 @@
  */
 package bibliomateca;
 
-import bibliomateca.Emprestimo.Emprestimo;
-import bibliomateca.exemplar.Exemplar;
+import DTO.Exemplar;
+import bibliomateca.Emprestimo.EmprestimoPainel;
+import bibliomateca.exemplar.ExemplarPainel;
 import bibliomateca.livro.LivroPainel;
-import bibliomateca.usuario.Usuario;
+import bibliomateca.usuario.UsuarioPanel;
 
 /**
  *
@@ -17,7 +18,10 @@ import bibliomateca.usuario.Usuario;
 public class Principal extends javax.swing.JFrame {
 
     LivroPainel livroPainel;
-    
+    ExemplarPainel exemplarPainel;
+    UsuarioPanel usuarioPainel;
+    EmprestimoPainel emprestimoPainel;
+
     public Principal() {
         initComponents();
         setLocationRelativeTo(null);
@@ -25,17 +29,19 @@ public class Principal extends javax.swing.JFrame {
 
     public void ativar() {
         LivroPainel livro = new LivroPainel();
-        Exemplar exemplar = new Exemplar();
-        Emprestimo emprestimo = new Emprestimo();
-        Usuario usuario = new Usuario();
-        
+        ExemplarPainel exemplar = new ExemplarPainel();
+        EmprestimoPainel emprestimo = new EmprestimoPainel();
+        UsuarioPanel usuario = new UsuarioPanel();
+
         setLivroPainel(livro);
-        
-        container.add("Exemplar", exemplar);
+        setExemplarPainel(exemplar);
+        setUsuarioPainel(usuario);
+
         container.add("Livro", livro);
+        container.add("Exemplar", exemplar);
         container.add("Emprestimo", emprestimo);
         container.add("Usuario", usuario);
-        
+
         setVisible(true);
     }
 
@@ -46,7 +52,31 @@ public class Principal extends javax.swing.JFrame {
     public void setLivroPainel(LivroPainel livroPainel) {
         this.livroPainel = livroPainel;
     }
-    
+
+    public ExemplarPainel getExemplarPainel() {
+        return exemplarPainel;
+    }
+
+    public void setExemplarPainel(ExemplarPainel exemplarPainel) {
+        this.exemplarPainel = exemplarPainel;
+    }
+
+    public UsuarioPanel getUsuarioPainel() {
+        return usuarioPainel;
+    }
+
+    public void setUsuarioPainel(UsuarioPanel usuarioPainel) {
+        this.usuarioPainel = usuarioPainel;
+    }
+
+    public EmprestimoPainel getEmprestimoPainel() {
+        return emprestimoPainel;
+    }
+
+    public void setEmprestimoPainel(EmprestimoPainel emprestimoPainel) {
+        this.emprestimoPainel = emprestimoPainel;
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -67,8 +97,15 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void containerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_containerStateChanged
-        if (container.getSelectedComponent() == getLivroPainel()){
+        if (container.getSelectedComponent() == getLivroPainel()) {
             getLivroPainel().ativar();
+        } else if (container.getSelectedComponent() == getExemplarPainel()) {
+            getExemplarPainel().ativar();
+        } else if (container.getSelectedComponent() == getUsuarioPainel()) {
+            getUsuarioPainel().ativar();
+        } else if (container.getSelectedComponent() == getEmprestimoPainel()) {
+            System.out.println("foiiiiiiiiiiiiiiiiiii");
+            getEmprestimoPainel().ativar();
         }
     }//GEN-LAST:event_containerStateChanged
 
