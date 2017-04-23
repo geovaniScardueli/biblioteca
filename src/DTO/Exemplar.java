@@ -9,11 +9,38 @@ package DTO;
  *
  * @author informatica
  */
-public class Exemplare {
-    
+public class Exemplar {
+
+    private int nrSequencia;
     private int exemplar;
     private int codigoBarra;
     private int patrimonio;
+    private int codLivro;
+    private int codUsuario;
+
+    public int getCodUsuario() {
+        return codUsuario;
+    }
+
+    public void setCodUsuario(int codUsuario) {
+        this.codUsuario = codUsuario;
+    }
+
+    public int getCodLivro() {
+        return codLivro;
+    }
+
+    public void setCodLivro(int codLivro) {
+        this.codLivro = codLivro;
+    }
+
+    public int getNrSequencia() {
+        return nrSequencia;
+    }
+
+    public void setNrSequencia(int nrSequencia) {
+        this.nrSequencia = nrSequencia;
+    }
 
     public int getExemplar() {
         return exemplar;
@@ -38,6 +65,5 @@ public class Exemplare {
     public void setPatrimonio(int patrimonio) {
         this.patrimonio = patrimonio;
     }
-    
-    
+
 }

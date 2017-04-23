@@ -9,54 +9,18 @@ package DTO;
  *
  * @author informatica
  */
-public class Livro {
+public class Livro extends Informacoes {
 
-    private String classificacao;
-    private String autor;
-    private String titulo;
-    private String editora;
-    private int ano;
     private int paginas;
-    private int ISBN;
+    private String ISBN;
+    private int codInformacoes;
 
-    public String getClassificacao() {
-        return classificacao;
+    public int getCodInformacoes() {
+        return codInformacoes;
     }
 
-    public void setClassificacao(String classificacao) {
-        this.classificacao = classificacao;
-    }
-
-    public String getAutor() {
-        return autor;
-    }
-
-    public void setAutor(String autor) {
-        this.autor = autor;
-    }
-
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
-    public String getEditora() {
-        return editora;
-    }
-
-    public void setEditora(String editora) {
-        this.editora = editora;
-    }
-
-    public int getAno() {
-        return ano;
-    }
-
-    public void setAno(int ano) {
-        this.ano = ano;
+    public void setCodInformacoes(int codInformacoes) {
+        this.codInformacoes = codInformacoes;
     }
 
     public int getPaginas() {
@@ -67,14 +31,12 @@ public class Livro {
         this.paginas = paginas;
     }
 
-    public int getISBN() {
+    public String getISBN() {
         return ISBN;
     }
 
-    public void setISBN(int ISBN) {
+    public void setISBN(String ISBN) {
         this.ISBN = ISBN;
     }
-    
-    
-    
+
 }

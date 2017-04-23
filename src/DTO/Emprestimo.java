@@ -12,11 +12,29 @@ import java.util.Date;
  * @author informatica
  */
 public class Emprestimo {
-    
+
+    int nrSequencia;
     String tituloLivro;
     String usuario;
     Date emprestimo;
     int exemplar;
+    int codExemplar;
+
+    public int getNrSequencia() {
+        return nrSequencia;
+    }
+
+    public void setNrSequencia(int nrSequencia) {
+        this.nrSequencia = nrSequencia;
+    }
+
+    public int getCodExemplar() {
+        return codExemplar;
+    }
+
+    public void setCodExemplar(int codExemplar) {
+        this.codExemplar = codExemplar;
+    }
 
     public String getTituloLivro() {
         return tituloLivro;
@@ -49,6 +67,5 @@ public class Emprestimo {
     public void setExemplar(int exemplar) {
         this.exemplar = exemplar;
     }
-    
-    
+
 }
