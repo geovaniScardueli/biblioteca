@@ -52,4 +52,9 @@ public class ModeloEmprestimo extends AbstractTableModel {
         this.emprestimo = emprestimo;
         fireTableDataChanged();
     }
+    
+    @Override
+    public String getColumnName(int columnIndex) {
+        return columns[columnIndex];
+    }
 }

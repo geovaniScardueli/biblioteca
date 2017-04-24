@@ -22,7 +22,7 @@ public class ExemplarDAO extends ConexaoDAO {
     public ArrayList<Exemplar> select(int sequencia) {
         ArrayList<Exemplar> dados = new ArrayList();
         Connection conn = novaConexao();
-        String sql = "select * from exemplar where nr_livro = ?;";
+        String sql = "select * from exemplar where nr_livro = ? and nr_sequencia not in(select nr_exemplar from emprestimo);";
         PreparedStatement pstmt = null;
         try {
             pstmt = conn.prepareStatement(sql);
@@ -51,6 +51,20 @@ public class ExemplarDAO extends ConexaoDAO {
             pstmt.setInt(1, exemplar.getCodigoBarra());
             pstmt.setInt(2, exemplar.getExemplar());
             pstmt.setInt(3, sequencia);
+            
+            pstmt.executeUpdate();
+            pstmt.close();
+        } catch (Exception e) {
+            System.out.println("erro: " + e);
+        }
+    }
+    
+    public void excluir(int sequencia) {
+        Connection conn = novaConexao();
+        String sql = "delete from exemplar where nr_sequencia = ?;";
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, sequencia);
             
             pstmt.executeUpdate();
             pstmt.close();

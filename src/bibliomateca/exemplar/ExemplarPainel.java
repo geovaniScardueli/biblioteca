@@ -107,6 +107,11 @@ public class ExemplarPainel extends javax.swing.JPanel {
         jButton1.setBounds(430, 50, 90, 23);
 
         jButton2.setText("Excluir");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         add(jButton2);
         jButton2.setBounds(570, 50, 90, 23);
     }// </editor-fold>//GEN-END:initComponents
@@ -115,13 +120,20 @@ public class ExemplarPainel extends javax.swing.JPanel {
         Exemplar exemplar = new Exemplar();
         exemplar.setCodigoBarra(Integer.parseInt(CD_BARRAS.getText()));
         exemplar.setPatrimonio(Integer.parseInt(NR_PATRIMONIOS.getText()));
-        exemplarDAO.adicionar(exemplar,(int) tabelaLivro.getValueAt(tabelaLivro.getSelectedRow(), 0));
+        exemplarDAO.adicionar(exemplar, (int) tabelaLivro.getValueAt(tabelaLivro.getSelectedRow(), 0));
         ativar();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void tabelaLivroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaLivroMouseClicked
         modeloExemplar.adicionarSelect(exemplarDAO.select(Integer.parseInt(tabelaLivro.getValueAt(tabelaLivro.getSelectedRow(), 0).toString())));
     }//GEN-LAST:event_tabelaLivroMouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if (tabelaExemplar.getSelectedRow() > -1) {
+            exemplarDAO.excluir(Integer.parseInt(tabelaExemplar.getValueAt(tabelaExemplar.getSelectedRow(), 0).toString()));
+            ativar();
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

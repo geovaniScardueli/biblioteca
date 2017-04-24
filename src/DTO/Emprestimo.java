@@ -5,8 +5,6 @@
  */
 package DTO;
 
-import java.util.Date;
-
 /**
  *
  * @author informatica
@@ -16,7 +14,7 @@ public class Emprestimo {
     int nrSequencia;
     String tituloLivro;
     String usuario;
-    Date emprestimo;
+    String emprestimo;
     int exemplar;
     int codExemplar;
 
@@ -52,11 +50,11 @@ public class Emprestimo {
         this.usuario = usuario;
     }
 
-    public Date getEmprestimo() {
+    public String getEmprestimo() {
         return emprestimo;
     }
 
-    public void setEmprestimo(Date emprestimo) {
+    public void setEmprestimo(String emprestimo) {
         this.emprestimo = emprestimo;
     }
 

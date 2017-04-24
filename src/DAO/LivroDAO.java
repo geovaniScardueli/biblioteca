@@ -74,4 +74,30 @@ public class LivroDAO extends ConexaoDAO {
             System.out.println("Erroooow: " + ex);
         }
     }
+    
+    public void excluir(int sequencia) {
+        Connection conn = novaConexao();
+        String sql2 = "delete from informacoes where nr_sequencia = ?;";
+        String sql = "delete from livro where nr_sequencia = ?;";
+        PreparedStatement pstmt = null;
+        PreparedStatement pstmt2 = null;
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, sequencia);
+            pstmt.executeUpdate();
+
+            pstmt.close();
+            
+            pstmt2 = conn.prepareStatement(sql2);
+            pstmt2.setInt(1, sequencia);
+            pstmt2.executeUpdate();
+            pstmt2.close();
+            
+            conn.close();
+            conn.close();
+            
+        } catch (Exception ex) {
+            System.out.println("Erroo deletar livro: " + ex);
+        }
+    }
 }

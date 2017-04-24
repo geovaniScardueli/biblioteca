@@ -5,7 +5,6 @@
  */
 package bibliomateca;
 
-import DTO.Exemplar;
 import bibliomateca.Emprestimo.EmprestimoPainel;
 import bibliomateca.exemplar.ExemplarPainel;
 import bibliomateca.livro.LivroPainel;
@@ -36,6 +35,7 @@ public class Principal extends javax.swing.JFrame {
         setLivroPainel(livro);
         setExemplarPainel(exemplar);
         setUsuarioPainel(usuario);
+        setEmprestimoPainel(emprestimo);
 
         container.add("Livro", livro);
         container.add("Exemplar", exemplar);

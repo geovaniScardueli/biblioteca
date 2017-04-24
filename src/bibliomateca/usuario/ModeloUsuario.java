@@ -5,7 +5,6 @@
  */
 package bibliomateca.usuario;
 
-import DTO.Livro;
 import DTO.Usuario;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
