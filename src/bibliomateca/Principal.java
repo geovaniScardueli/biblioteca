@@ -104,7 +104,6 @@ public class Principal extends javax.swing.JFrame {
         } else if (container.getSelectedComponent() == getUsuarioPainel()) {
             getUsuarioPainel().ativar();
         } else if (container.getSelectedComponent() == getEmprestimoPainel()) {
-            System.out.println("foiiiiiiiiiiiiiiiiiii");
             getEmprestimoPainel().ativar();
         }
     }//GEN-LAST:event_containerStateChanged

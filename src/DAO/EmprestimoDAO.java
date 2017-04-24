@@ -87,14 +87,22 @@ public class EmprestimoDAO extends ConexaoDAO{
     
     public void deletarEmprestimo(int sequencia) {
         Connection conn = novaConexao();
-        String sql = "delete from emprestimo where nr_sequencia = ?;";
+        String sql2 = "delete from emprestimo where nr_sequencia = ?;";
+        String sql = "update usuario set multa = null where nome = (select usuario from emprestimo where nr_sequencia = ?);";
         PreparedStatement pstmt = null;
+        PreparedStatement pstmt2 = null;
         try {
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, sequencia);
             pstmt.executeUpdate();
             
             pstmt.close();
+            
+            pstmt2 = conn.prepareStatement(sql2);
+            pstmt2.setInt(1, sequencia);
+            pstmt2.executeUpdate();
+            pstmt2.close();
+            
             conn.close();
         } catch (Exception ex) {
             System.out.println("Erro delete emprestimo: " + ex);
