@@ -35,7 +35,7 @@ NR_SEQUENCIA int primary key auto_increment,
 NOME varchar(50),
 TIPO varchar(2),
 MULTA int,
-EMPRESTIMO date
+EMPRESTIMO varchar(11)
 );
 
 create table exemplar(
@@ -44,7 +44,7 @@ COD_BARRAS int,
 PATRIMONIO int,
 NR_LIVRO int,
 NR_USUARIO int,
-foreign key(NR_LIVRO) references livro(NR_SEQUENCIA),
+foreign key(NR_LIVRO) references livro(NR_SEQUENCIA) on delete cascade,
 foreign key(NR_USUARIO) references usuario(NR_SEQUENCIA)
 );
 
@@ -52,9 +52,9 @@ create table emprestimo(
 NR_SEQUENCIA int primary key auto_increment,
 LIVRO varchar(50),
 USUARIO varchar(50),
-EMPRESTIMO date,
+EMPRESTIMO varchar(11),
 NR_EXEMPLAR int,
-foreign key(NR_EXEMPLAR) references exemplar(NR_SEQUENCIA)
+foreign key(NR_EXEMPLAR) references exemplar(NR_SEQUENCIA) on delete cascade
 );
 
 

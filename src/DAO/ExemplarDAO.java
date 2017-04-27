@@ -6,8 +6,6 @@
 package DAO;
 
 import DTO.Exemplar;
-import DTO.Livro;
-import DTO.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -49,7 +47,7 @@ public class ExemplarDAO extends ConexaoDAO {
         try {
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, exemplar.getCodigoBarra());
-            pstmt.setInt(2, exemplar.getExemplar());
+            pstmt.setInt(2, exemplar.getPatrimonio());
             pstmt.setInt(3, sequencia);
             
             pstmt.executeUpdate();

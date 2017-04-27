@@ -40,6 +40,7 @@ public class UsuarioPanel extends javax.swing.JPanel {
         IE_SERVIDOR = new javax.swing.JCheckBox();
         diaAtual = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setLayout(null);
 
@@ -59,11 +60,11 @@ public class UsuarioPanel extends javax.swing.JPanel {
         add(jScrollPane1);
         jScrollPane1.setBounds(110, 20, 530, 290);
         add(DS_NOME);
-        DS_NOME.setBounds(130, 350, 370, 20);
+        DS_NOME.setBounds(130, 350, 370, 37);
 
         jLabel1.setText("Nome:");
         add(jLabel1);
-        jLabel1.setBounds(70, 360, 50, 14);
+        jLabel1.setBounds(70, 355, 50, 20);
 
         jButton1.setText("Adicionar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -76,7 +77,7 @@ public class UsuarioPanel extends javax.swing.JPanel {
 
         IE_SERVIDOR.setText("Servidor");
         add(IE_SERVIDOR);
-        IE_SERVIDOR.setBounds(120, 410, 80, 23);
+        IE_SERVIDOR.setBounds(120, 410, 100, 24);
 
         diaAtual.setToolTipText("");
         add(diaAtual);
@@ -89,7 +90,11 @@ public class UsuarioPanel extends javax.swing.JPanel {
             }
         });
         add(jButton2);
-        jButton2.setBounds(10, 170, 90, 23);
+        jButton2.setBounds(10, 170, 90, 30);
+
+        jLabel2.setText("Dia");
+        add(jLabel2);
+        jLabel2.setBounds(40, 90, 45, 20);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -97,7 +102,7 @@ public class UsuarioPanel extends javax.swing.JPanel {
         usuario.setNome(DS_NOME.getText());
         usuario.setTipo(IE_SERVIDOR.isSelected() ? "S" : "N");
         usuarioDAO.adicionar(usuario);
-        jButton2ActionPerformed(null);
+        ativar();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -114,6 +119,7 @@ public class UsuarioPanel extends javax.swing.JPanel {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabelaUsuario;
     // End of variables declaration//GEN-END:variables

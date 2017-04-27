@@ -117,11 +117,18 @@ public class ExemplarPainel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Exemplar exemplar = new Exemplar();
-        exemplar.setCodigoBarra(Integer.parseInt(CD_BARRAS.getText()));
-        exemplar.setPatrimonio(Integer.parseInt(NR_PATRIMONIOS.getText()));
-        exemplarDAO.adicionar(exemplar, (int) tabelaLivro.getValueAt(tabelaLivro.getSelectedRow(), 0));
-        ativar();
+        int linhaSelecionada = tabelaLivro.getSelectedRow();
+        if (tabelaLivro.getSelectedRow() > -1) {
+            Exemplar exemplar = new Exemplar();
+            exemplar.setCodigoBarra(Integer.parseInt(CD_BARRAS.getText()));
+            exemplar.setPatrimonio(Integer.parseInt(NR_PATRIMONIOS.getText()));
+            exemplarDAO.adicionar(exemplar, (int) tabelaLivro.getValueAt(tabelaLivro.getSelectedRow(), 0));
+            ativar();
+            CD_BARRAS.setText("");
+            NR_PATRIMONIOS.setText("");
+            tabelaLivro.setRowSelectionInterval(linhaSelecionada, linhaSelecionada);
+            tabelaLivroMouseClicked(null);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void tabelaLivroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaLivroMouseClicked

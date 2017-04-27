@@ -16,7 +16,7 @@ public class ConexaoDAO {
     protected Connection novaConexao() {
         Connection conn = null;
         final String nome = "root";
-        final String senha = "w8dsa5ret2";
+        final String senha = "alunoifc";
         final String db_url = "jdbc:mysql://localhost/bibliomateca";
 
         try {

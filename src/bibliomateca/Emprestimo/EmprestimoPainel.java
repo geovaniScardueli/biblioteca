@@ -13,9 +13,7 @@ import DTO.Emprestimo;
 import DTO.Exemplar;
 import DTO.Livro;
 import DTO.Usuario;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import javax.swing.JOptionPane;
 
 public class EmprestimoPainel extends javax.swing.JPanel {
@@ -53,7 +51,7 @@ public class EmprestimoPainel extends javax.swing.JPanel {
     public void reativar() {
         modeloEmprestimo.adicionarSelect(emprestimoDAO.select());
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -70,6 +68,7 @@ public class EmprestimoPainel extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         dataEmprestimo = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setLayout(null);
 
@@ -91,18 +90,18 @@ public class EmprestimoPainel extends javax.swing.JPanel {
 
         jLabel1.setText("usuário:");
         add(jLabel1);
-        jLabel1.setBounds(30, 350, 60, 14);
+        jLabel1.setBounds(30, 350, 60, 20);
 
         jLabel2.setText("Data:");
         add(jLabel2);
-        jLabel2.setBounds(30, 440, 45, 14);
+        jLabel2.setBounds(30, 440, 45, 20);
 
         add(usuarioLB);
         usuarioLB.setBounds(90, 350, 280, 20);
 
         jLabel3.setText("Livro:");
         add(jLabel3);
-        jLabel3.setBounds(40, 380, 45, 14);
+        jLabel3.setBounds(40, 380, 45, 20);
 
         jButton1.setText("Adicionar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -111,7 +110,7 @@ public class EmprestimoPainel extends javax.swing.JPanel {
             }
         });
         add(jButton1);
-        jButton1.setBounds(430, 370, 90, 30);
+        jButton1.setBounds(430, 350, 120, 30);
 
         livroLB.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -126,7 +125,7 @@ public class EmprestimoPainel extends javax.swing.JPanel {
 
         jLabel4.setText("Exemplar");
         add(jLabel4);
-        jLabel4.setBounds(24, 410, 50, 14);
+        jLabel4.setBounds(24, 410, 50, 20);
 
         dataEmprestimo.setToolTipText("");
         add(dataEmprestimo);
@@ -139,7 +138,16 @@ public class EmprestimoPainel extends javax.swing.JPanel {
             }
         });
         add(jButton2);
-        jButton2.setBounds(430, 410, 90, 30);
+        jButton2.setBounds(430, 390, 120, 30);
+
+        jButton3.setText("Renovar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        add(jButton3);
+        jButton3.setBounds(430, 430, 120, 30);
     }// </editor-fold>//GEN-END:initComponents
 
     private void livroLBItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_livroLBItemStateChanged
@@ -155,6 +163,7 @@ public class EmprestimoPainel extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
             if (emprestimoDAO.podeEmprestar(usuarioLB.getSelectedItem().toString())) {
+                int index = exemplarLB.getSelectedIndex();
                 String[] exemplar = exemplarLB.getSelectedItem().toString().split("-");
                 Emprestimo emprestimo = new Emprestimo();
                 emprestimo.setUsuario(usuarioLB.getSelectedItem().toString());
@@ -163,6 +172,7 @@ public class EmprestimoPainel extends javax.swing.JPanel {
                 emprestimo.setEmprestimo(dataEmprestimo.getText());
                 emprestimoDAO.inserirEmprestimo(emprestimo);
                 reativar();
+                exemplarLB.removeItemAt(index);
             } else {
                 JOptionPane.showMessageDialog(null, "Não é possível realizar o emprestimo, usuário possui multa acima do permitido");
             }
@@ -176,8 +186,13 @@ public class EmprestimoPainel extends javax.swing.JPanel {
         if (tabela.getSelectedRow() > -1) {
             emprestimoDAO.deletarEmprestimo(Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString()));
             reativar();
+            livroLBItemStateChanged(null);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        
+    }//GEN-LAST:event_jButton3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -185,6 +200,7 @@ public class EmprestimoPainel extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> exemplarLB;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

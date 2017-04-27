@@ -195,6 +195,7 @@ public class LivroPainel extends javax.swing.JPanel {
         DS_EDITORA.setText("");
         DS_TITULO.setText("");
         NR_ISBN.setText("");
+        NR_PAGINAS.setText("");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
