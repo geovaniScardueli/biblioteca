@@ -56,11 +56,3 @@ EMPRESTIMO varchar(11),
 NR_EXEMPLAR int,
 foreign key(NR_EXEMPLAR) references exemplar(NR_SEQUENCIA) on delete cascade
 );
-
-
-
-
-
-
-
-

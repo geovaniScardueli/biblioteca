@@ -12,17 +12,18 @@ import DAO.UsuarioDAO;
 import DTO.Emprestimo;
 import DTO.Exemplar;
 import DTO.Livro;
+import DTO.Reserva;
 import DTO.Usuario;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class EmprestimoPainel extends javax.swing.JPanel {
 
-    private EmprestimoDAO emprestimoDAO;
-    private ModeloEmprestimo modeloEmprestimo;
-    private UsuarioDAO usuarioDao;
-    private LivroDAO livroDAO;
-    private ExemplarDAO exemplarDAO;
+    private final EmprestimoDAO emprestimoDAO;
+    private final ModeloEmprestimo modeloEmprestimo;
+    private final UsuarioDAO usuarioDao;
+    private final LivroDAO livroDAO;
+    private final ExemplarDAO exemplarDAO;
 
     public EmprestimoPainel() {
         initComponents();
@@ -51,7 +52,18 @@ public class EmprestimoPainel extends javax.swing.JPanel {
     public void reativar() {
         modeloEmprestimo.adicionarSelect(emprestimoDAO.select());
     }
-    
+
+    public boolean podeReservar() {
+        String[] exemplar = exemplarLB.getSelectedItem().toString().split("-");
+        Reserva temReserva = emprestimoDAO.verificaEmprestimo(Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString()), usuarioLB.getSelectedItem().toString());
+        if (temReserva != null) {
+            JOptionPane.showMessageDialog(null, "Este Exemplar já está reservado pelo o usuario: " + temReserva.getUsuario());
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -162,17 +174,20 @@ public class EmprestimoPainel extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
-            if (emprestimoDAO.podeEmprestar(usuarioLB.getSelectedItem().toString())) {
+            if (emprestimoDAO.VerificaMulta(usuarioLB.getSelectedItem().toString())) {
                 int index = exemplarLB.getSelectedIndex();
                 String[] exemplar = exemplarLB.getSelectedItem().toString().split("-");
-                Emprestimo emprestimo = new Emprestimo();
-                emprestimo.setUsuario(usuarioLB.getSelectedItem().toString());
-                emprestimo.setTituloLivro(livroLB.getSelectedItem().toString());
-                emprestimo.setExemplar(Integer.parseInt(exemplar[0]));
-                emprestimo.setEmprestimo(dataEmprestimo.getText());
-                emprestimoDAO.inserirEmprestimo(emprestimo);
-                reativar();
-                exemplarLB.removeItemAt(index);
+                Reserva temReserva = emprestimoDAO.verificaEmprestimo(Integer.parseInt(exemplar[0]), usuarioLB.getSelectedItem().toString());
+                if (podeReservar()) {
+                    Emprestimo emprestimo = new Emprestimo();
+                    emprestimo.setUsuario(usuarioLB.getSelectedItem().toString());
+                    emprestimo.setTituloLivro(livroLB.getSelectedItem().toString());
+                    emprestimo.setExemplar(Integer.parseInt(exemplar[0]));
+                    emprestimo.setEmprestimo(dataEmprestimo.getText());
+                    emprestimoDAO.inserirEmprestimo(emprestimo);
+                    reativar();
+                    exemplarLB.removeItemAt(index);
+                }
             } else {
                 JOptionPane.showMessageDialog(null, "Não é possível realizar o emprestimo, usuário possui multa acima do permitido");
             }
@@ -191,7 +206,12 @@ public class EmprestimoPainel extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        
+        if (tabela.getSelectedRow() > -1) {
+            if (podeReservar()) {
+                emprestimoDAO.renovar(dataEmprestimo.getText(), Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString()));
+            }
+            reativar();
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
 

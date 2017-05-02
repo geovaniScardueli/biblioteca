@@ -8,6 +8,7 @@ package bibliomateca;
 import bibliomateca.Emprestimo.EmprestimoPainel;
 import bibliomateca.exemplar.ExemplarPainel;
 import bibliomateca.livro.LivroPainel;
+import bibliomateca.reserva.ReservaPainel;
 import bibliomateca.usuario.UsuarioPanel;
 
 /**
@@ -20,6 +21,7 @@ public class Principal extends javax.swing.JFrame {
     ExemplarPainel exemplarPainel;
     UsuarioPanel usuarioPainel;
     EmprestimoPainel emprestimoPainel;
+    ReservaPainel reservaPainel;
 
     public Principal() {
         initComponents();
@@ -31,17 +33,20 @@ public class Principal extends javax.swing.JFrame {
         ExemplarPainel exemplar = new ExemplarPainel();
         EmprestimoPainel emprestimo = new EmprestimoPainel();
         UsuarioPanel usuario = new UsuarioPanel();
-
+        ReservaPainel reserva = new ReservaPainel();
+        
         setLivroPainel(livro);
         setExemplarPainel(exemplar);
         setUsuarioPainel(usuario);
         setEmprestimoPainel(emprestimo);
-
+        setReservaPainel(reserva);
+        
         container.add("Livro", livro);
         container.add("Exemplar", exemplar);
-        container.add("Emprestimo", emprestimo);
         container.add("Usuario", usuario);
-
+        container.add("Emprestimo", emprestimo);
+        container.add("Reserva", reserva);
+        
         setVisible(true);
     }
 
@@ -77,6 +82,14 @@ public class Principal extends javax.swing.JFrame {
         this.emprestimoPainel = emprestimoPainel;
     }
 
+    public ReservaPainel getReservaPainel() {
+        return reservaPainel;
+    }
+
+    public void setReservaPainel(ReservaPainel reservaPainel) {
+        this.reservaPainel = reservaPainel;
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -105,6 +118,8 @@ public class Principal extends javax.swing.JFrame {
             getUsuarioPainel().ativar();
         } else if (container.getSelectedComponent() == getEmprestimoPainel()) {
             getEmprestimoPainel().ativar();
+        } else if (container.getSelectedComponent() == getReservaPainel()) {
+            getReservaPainel().ativar();
         }
     }//GEN-LAST:event_containerStateChanged
 

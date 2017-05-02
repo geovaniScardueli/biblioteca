@@ -6,9 +6,8 @@
 package DAO;
 
 import DTO.Emprestimo;
-import DTO.Livro;
+import DTO.Reserva;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -77,8 +76,14 @@ public class EmprestimoDAO extends ConexaoDAO{
             pstmt.setString(3, emprestimo.getEmprestimo());
             pstmt.setInt(4, emprestimo.getExemplar());
             pstmt.executeUpdate();
-            
             pstmt.close();
+            
+            String sql2 = "delete from reserva where nr_exemplar = ?;";
+            PreparedStatement pstmt2 = conn.prepareStatement(sql2);
+            pstmt2.setInt(1, emprestimo.getExemplar());
+            pstmt2.executeUpdate();
+            pstmt2.close();
+            
             conn.close();
         } catch (Exception ex) {
             System.out.println("Erro insert emprestimo: " + ex);
@@ -109,7 +114,7 @@ public class EmprestimoDAO extends ConexaoDAO{
         }
     }
     
-    public boolean podeEmprestar(String nome) {
+    public boolean VerificaMulta(String nome) {
         Connection conn = novaConexao();
         String sql = "select multa from usuario where nome = ?;";
         boolean podeEmprestar = true;
@@ -129,5 +134,39 @@ public class EmprestimoDAO extends ConexaoDAO{
             System.out.println("Erro pode emprestar: " + ex);
         }
         return podeEmprestar;
+    }
+    
+    public Reserva verificaEmprestimo(int seqExemplar, String usuario) {
+        Connection con = novaConexao();
+        Reserva reserva = new Reserva();
+        String sql = "select * from reserva where nr_sequencia = ? and usuario = ?;";
+        try {
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.setInt(1, seqExemplar);
+            pstmt.setString(2, usuario);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {                
+                reserva.setUsuario(rs.getString("USUARIO"));
+                return reserva;
+            }
+        } catch(Exception ex) {
+            System.out.println("erro ao verificar emprestimo" + ex);
+        }
+        return null;
+    }
+    
+    public void renovar(String data, int seq) {
+        Connection con = novaConexao();
+        String sql = "update emprestimo set emprestimo = ? where nr_sequencia = ?;";
+        try {
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, data);
+            pstmt.setInt(2, seq);
+            pstmt.executeUpdate();
+            pstmt.close();
+            con.close();
+        } catch(Exception ex){ 
+            System.out.println("erroa o renovar: " + ex);
+        }
     }
 }
